@@ -1,0 +1,103 @@
+
+------------------------
+---Get-AzResourceLock---
+------------------------
+
+https://learn.microsoft.com/en-us/powershell/module/az.resources/get-azresourcelock?view=azps-11.5.0&viewFallbackFrom=azps-2.6.0
+
+//The Get-AzResourceLock cmdlet gets Azure resource locks.
+//O cmdlet Get-AzResourceLock obtém bloqueios de recursos do Azure.
+
+//Example 1: Get a lock - 
+//Obter um bloqueio
+
+Get-AzResourceLock -LockName "ContosoSiteLock" -ResourceName "ContosoSite" -ResourceType "microsoft.web/sites" -ResourceGroupName "ResourceGroup11
+
+Example 2: Get locks at resource group level or higher -
+ Obter bloqueios no nível do grupo de recursos ou superior
+
+ "Get-AzResourceLock -ResourceGroupName "ResourceGroup11" -AtScope"
+
+
+ ------------------------
+ ---Get-AzResource-------
+ ------------------------
+ 
+ The Get-AzResource cmdlet gets Azure resources.
+ O cmdlet Get-AzResource obtém recursos do Azure.
+
+ Example 1: Get all resources in the current subscription
+ Obter todos os recursos na assinatura atual
+
+ "Get-AzResource | Format-Table"
+
+
+Esse comando obtém todos os recursos na assinatura atual.
+
+Example 2: Get all resources in a resource group
+Obter todos os recursos em um grupo de recursos
+
+"Get-AzResource -ResourceGroupName testRG | Format-Table"
+
+
+Example 3: Get all resources whose resource group matches the provided wildcard
+Obter todos os recursos cujo grupo de recursos corresponda ao curinga fornecido
+
+"Get-AzResource -ResourceGroupName other* | Format-Table"
+
+Este comando obtém todos os recursos cujo grupo de recursos eles pertencem em seres com "outro".
+
+Example 4: Get all resources with a given name
+Obter todos os recursos com um nome próprio
+
+"Get-AzResource -Name testVM | Format-List"
+
+
+Esse comando obtém todos os recursos cujo nome do recurso é "testVM".
+
+Example 5: Get all resources whose name matches the provided wildcard
+Obter todos os recursos cujo nome corresponda ao curinga fornecido
+
+"Get-AzResource -Name test* | Format-Table"
+
+Esse comando obtém todos os recursos cujo nome do recurso começa com "test".
+
+
+Example 6: Get all resources of a given resource type
+Obter todos os recursos de um determinado tipo de recurso
+
+
+"Get-AzResource -ResourceType Microsoft.Compute/virtualMachines | Format-Table""
+
+
+Esse comando obtém todos os recursos nas assinaturas atuais que são máquinas virtuais.
+
+Example 7: Get a resource by resource id
+"Get-AzResource -ResourceId /subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/resourceGroups/testRG/providers/Microsoft.Compute/virtualMachines/testVM"
+
+
+Obter um recurso por ID de recurso
+
+Esse comando obtém o recurso com a id de recurso fornecida, que é uma máquina virtual chamada "testVM" no grupo de recursos "testRG".
+
+
+Remove-AzResourceLock
+
+The Remove-AzResourceLock cmdlet removes an Azure resource lock.
+O cmdlet Remove-AzResourceLock remove um bloqueio de recursos do Azure.
+
+Example 1: Get a lock
+Obter um bloqueio
+
+'Remove-AzResourceLock -LockName "ContosoSiteLock" -ResourceName "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/Default-Storage-SouthCentralUS/providers/Microsoft.ClassicStorage/storageAccounts/mystorageaccount/providers/Microsoft.Authorization/locks/test'
+
+Este comando remove o bloqueio chamado ContosoSiteLock.
+
+'Remove-AzResourceLock -LockName 'ContosoSiteLock' -ResourceGroupName myresourcegroup -ResourceName '/subscriptions/00000000-0000-0000-0000-00000000000000000/resourceGroups/Default-Storage-SouthCentralUS/providers/Microsoft.ClassicStorage/storageAccounts/mystorageaccount/providers/Microsoft.Authorization/locks/test' -ResourceType 'Microsoft.ClassicCompute/storageAccounts'
+
+Remove-AzResource
+
+Example 1: Remove a website resource
+Remover um recurso de site
+
+Remove-AzResource -ResourceId "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/ResourceGroup11/providers/Microsoft.Web/sites/ContosoSite" -Force

@@ -1,0 +1,50 @@
+Get- recupera dados(equivalente a listar)
+Set - insere ou atualiza dados
+Format - formata os dados
+Out - direciona a saída para um destino
+New- cria o novo objeto
+Remove - deleta objeto
+List- listar
+
+Get-AzResourceGroup (Listar)
+
+az group create --name LotusTeam2012 --location brazilsouth
+az group list
+az group list --output table
+az group list --query "[?name == 'RGTio02']"
+
+Remove-AzResourceGroup -Name exemplo
+
+Get-AzResourceGroup -Name 'SRVAD' | Remove-AzResourceGroup -Force -AsJob
+
+
+Criação do Resource Group
+
+$resourceGroup = "SRVAD"
+$location = "eastus"
+New-AzResourceGroup -Name $resourceGroup -Location $location
+
+New-AzResourceGroup -name TeamLotusJP -location brazilsouth
+Remove-AzResourceGroup -Name "TeamLotusJP"
+
+
+
+####################
+#Get-AzResourceLock#
+####################
+
+https://learn.microsoft.com/en-us/powershell/module/az.resources/get-azresourcelock?view=azps-11.5.0&viewFallbackFrom=azps-2.6.0
+
+
+#The Get-AzResourceLock cmdlet gets Azure resource locks.
+#O cmdlet Get-AzResourceLock obtém bloqueios de recursos do Azure.
+
+#Example 1: Get a lock - 
+#Obter um bloqueio
+
+Get-AzResourceLock -LockName "ContosoSiteLock" -ResourceName "ContosoSite" -ResourceType "microsoft.web/sites" -ResourceGroupName "ResourceGroup11
+
+#Example 2: Get locks at resource group level or higher -
+#Obter bloqueios no nível do grupo de recursos ou superior
+
+ Get-AzResourceLock -ResourceGroupName "ResourceGroup11" -AtScope

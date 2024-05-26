@@ -1,0 +1,26 @@
+Comando para desatachar e atachar o disco na maquina virtual
+
+Para Desatachar
+
+#1-)Listar
+$VirtualMachine = Get-AzVM -ResourceGroupName "nomdorg" -Name "nomedavm" 
+
+#2-)remover
+Remove-AzVMDataDisk -VM $VirtualMachine -Name "nomedodisco"
+
+#3-)Atualizar a maquina
+Update-AzVM -ResourceGroupName "rg_teste" -VM $VirtualMachine
+
+
+
+$rgName = "nomedorg"
+$vmName = "nomedavm"
+$dataDiskName = "nomedodisco"
+
+$disk = Get-AzDisk -ResourceGroupName $rgName -DiskName $dataDiskName
+
+$vm = Get-AzVM -Name $vmName -ResourceGroupName $rgName
+
+$vm = Add-AzVMDataDisk -CreateOption Attach -Lun 0 -VM $vm -ManagedDiskId $disk.Id
+
+Update-AzVM -VM $vm -ResourceGroupName $rgName
